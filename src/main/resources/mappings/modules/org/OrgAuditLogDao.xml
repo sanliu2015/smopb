@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.org.dao.OrgAuditLogDao">
+	
+	<select id="queryList" resultType="java.util.Map">
+		select a.id as "id", 
+			a.org_code as "orgCode",
+			b.name as "orgName",
+	    	a.item_code as "itemCode",
+			a.status as "status",
+			a.msg as "msg",
+			TO_CHAR(a.credt,'yyyy-MM-dd') as "credt",
+			TO_CHAR(a.moddt,'yyyy-MM-dd') as "moddt",
+			a.operator as "operator"
+		from ORG_AUDIT_LOG a 
+			inner join ORG_ORGANIZATION_INFO b on a.org_code=b.code 
+		where a.org_Code=#{orgCode} and a.item_code='0' 
+		order by a.credt desc 
+	</select>
+	
+	<update id="updateFileStatus" parameterType="com.thinkgem.jeesite.modules.org.entity.OrgAttachment">
+		update ORG_ORGANIZATION_INFO 
+		<trim prefix="set" suffixOverrides=",">
+			<if test="itemCode == '1'.toString()">
+				licence_status='1',
+			</if>  
+			<if test="itemCode == '2'.toString()">
+				log_status='1',
+			</if>
+			<if test="itemCode == '3'.toString()">
+				loa_status='1',
+			</if>
+		</trim>
+		where code=#{orgCode}  
+	</update>
+	
+	<update id="updateStatus" parameterType="com.thinkgem.jeesite.modules.org.entity.OrganizationInfo">
+		update ORG_ORGANIZATION_INFO 
+			set status = '0' 
+		where code = #{code}	
+	</update>
+	
+	<insert id="insert">
+		INSERT INTO org_audit_log(
+			id,
+			org_code,
+			item_code,
+			status,
+			credt,
+			moddt
+		) VALUES (
+			#{id},
+			#{orgCode},
+			#{itemCode},
+			'0',
+			#{credt},
+			#{moddt}
+		)
+	</insert>	
+	
+	<sql id="orgAuditLogColumns">
+		a.id as "id",
+		a.org_code as "orgCode",
+		a.item_code as "itemCode",
+		a.status as "status",
+		a.credt as "credt",
+		a.moddt as "moddt",
+		b.name as "orgName",
+		a.operator as "operator.id",
+		c.name as "operator.name"
+	</sql>
+	
+	<sql id="orgAuditLogJoins">
+		left join ORG_ORGANIZATION_INFO b on a.org_code=b.code 
+		left join sys_user c on a.operator=c.id 
+	</sql>
+	
+	<select id="get" resultType="com.thinkgem.jeesite.modules.org.entity.OrgAuditLog">
+		SELECT 
+			<include refid="orgAuditLogColumns"/>
+		FROM ORG_AUDIT_LOG a
+		<include refid="orgAuditLogJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="com.thinkgem.jeesite.modules.org.entity.OrgAuditLog">
+		SELECT 
+			<include refid="orgAuditLogColumns"/>
+		FROM ORG_AUDIT_LOG a
+		<include refid="orgAuditLogJoins"/>
+		<where>
+			a.item_code='0' 
+			<if test="orgCode != null and orgCode != ''">
+				AND a.org_code LIKE '%'||#{orgCode}||'%'
+			</if>
+			<if test="orgName != null and orgName != ''">
+				AND b.name LIKE '%'||#{orgName}||'%'
+			</if>
+			<if test="status != null and status != ''">
+				AND a.status = #{status}
+			</if>
+			<if test="submitSdate != null and submitSdate != ''">
+				AND TO_CHAR(a.credt, 'YYYY-MM-DD') &gt;= #{submitSdate} 
+			</if>
+			<if test="submitEdate != null and submitEdate != ''">
+				AND TO_CHAR(a.credt, 'YYYY-MM-DD') &lt;= #{submitEdate} 
+			</if>
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.credt DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	
+	<select id="queryAuditLog" parameterType="com.thinkgem.jeesite.modules.org.entity.OrgAuditLog" resultType="map">
+		select a.id as "logId",a.item_code as "itemCode",a.org_code as "orgCode",a.credt as "credt",
+			a.moddt as "moddt",a.status as "status",a.msg as "msg",b.id as "attachId",
+			b.file_path as "filePath",b.save_file_name as "saveFileName",b.suffix as "suffix" 
+		from ORG_AUDIT_LOG a 
+			left join org_attachment b on a.org_code=b.org_code and a.item_code=b.item_code 
+		where a.org_code=#{orgCode} and a.credt=#{credt} and a.item_code != '0'	
+		order by a.item_code asc	
+	</select>
+	
+	<select id="getOrganAuditLog" resultType="com.thinkgem.jeesite.modules.org.entity.OrgAuditLog">
+		SELECT 
+			<include refid="orgAuditLogColumns"/>
+		FROM ORG_AUDIT_LOG a
+		<include refid="orgAuditLogJoins"/>
+		WHERE a.org_code = #{orgCode} and a.item_code = '0'	and a.credt = #{credt}
+	</select>
+	
+	<update id="auditLog">
+		update org_audit_log set 
+			status=#{status},
+			moddt=#{updateDate},
+			operator=#{operator.id},
+			msg=#{msg}
+		where id=#{id} and moddt=#{moddt}	
+	</update>
+	
+	
+</mapper>

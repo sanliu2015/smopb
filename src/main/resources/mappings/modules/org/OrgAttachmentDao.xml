@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.org.dao.OrgAttachmentDao">
+	
+	<sql id="userColumns">
+		a.id as "id",
+		a.src_file_name as "srcFileName",
+		a.save_file_name as "saveFileName",
+		a.suffix as "suffix",
+		a.file_path as "filePath",
+		a.credt as "credt",
+		a.moddt as "moddt",
+		a.org_code as "orgCode",
+		a.item_code as "itemCode"
+	</sql>
+	
+	<select id="get" resultType="com.thinkgem.jeesite.modules.org.entity.OrgAttachment">
+		select 
+			<include refid="userColumns"/>
+		from org_attachment a 
+		where a.id=#{id}
+	</select>
+	
+	<select id="findList" resultType="com.thinkgem.jeesite.modules.org.entity.OrgAttachment">
+		select 
+			<include refid="userColumns"/>
+		from org_attachment a 
+		where a.org_code=#{orgCode} and a.item_code=#{itemCode}
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO org_attachment(
+			id,
+			src_file_name,
+			save_file_name,
+			suffix,
+			file_path,
+			credt,
+			moddt,
+			org_code,
+			item_code
+		)values(
+			#{id},
+			#{srcFileName},
+			#{saveFileName},
+			#{suffix},
+			#{filePath},
+			#{credt},
+			#{moddt},
+			#{orgCode},
+			#{itemCode}
+		)
+	</insert>
+	
+	<update id="update">
+		update org_attachment set
+			src_file_name=#{srcFileName},
+			save_file_name=#{saveFileName},
+			suffix=#{suffix},
+			file_path=#{filePath},
+			moddt=#{moddt} 
+		where id=#{id}	
+	</update>
+	
+</mapper>

@@ -1,0 +1,20 @@
+/*
+消息中心-login
+*/
+body,html {height: 100%;}
+body {background: url(../images/bg.jpg) no-repeat center center;}
+.login_box {width: 334px;height: 460px;padding:0 33px;position: absolute;top:50%;left: 50%;margin:-250px 0 0 -200px;
+background-color:rgba(255,255,255,.3);
+background-color:#a1ccfc \9;
+background-color:rgba(255,255,255,.3)\0;
+*background-color:#a1ccfc;
+}
+.hb_logo {text-align: center;padding-top: 40px;}
+.login_box p {color: #404040;}
+.login_form li {height: 40px;line-height: 40px;background: #fff;border-radius: 5px;overflow: hidden;box-shadow:1px 1px 2px rgba(100,100,100,.3) inset;padding: 3px 0;}
+.login_form li span {font-size: 16px;display: inline-block;border-right:1px solid #ddd;margin-left: 10px;float:left;}
+.login_form li input {width: 240px;height: 40px;line-height:40px;border:0;margin-left:10px;font-size: 16px;float:left;outline: none;}
+.login_box .btn input {height: 45px; width: 100%; font-size: 16px;color: #fff;background: #336bd5;border-radius: 5px;border:0;margin-top: 23px; cursor: pointer;transition:all .3s ease;}
+.login_box .btn input:hover {background:#437DEA;}
+.error_msg {color: #ff0101;}
+.copyright {position: absolute;top:50%;width: 100%; text-align: center;color:#2290ac;margin-top: 40px;margin-top:240px;;}

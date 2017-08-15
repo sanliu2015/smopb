@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.thinkgem.jeesite.modules.org.dao.OrganizationInfoDao">
+	
+	<select id="queryOrganInfo" resultType="java.util.Map">
+		select b.name as "adminName",
+		b.mobile as "adminMobile",
+		b.email as "adminEmail",
+		a.name as "orgName",
+		a.code as "orgCode",
+		b.id as "adminId"  
+		from ORG_ORGANIZATION_INFO a 
+		inner join sys_user b on a.user_id=b.id 
+		where a.code=#{orgCode}
+	</select>
+	
+	<select id="queryUserByMobile" resultType="java.util.Map">
+		select id as "id" from sys_user where mobile=#{mobile}
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO ORG_ORGANIZATION_INFO(
+			id,
+			code,
+			name,
+			user_id,
+			credt,
+			moddt
+		) VALUES (
+			#{id},
+			#{code},
+			#{name},
+			#{userId},
+			#{credt},
+			#{moddt}
+		)
+	</insert>
+	
+	<update id="updateOrgInfo">
+		UPDATE ORG_ORGANIZATION_INFO SET 
+			name=#{orgName} 
+		WHERE code = #{orgCode}
+	</update>
+	
+	<update id="updateAdminUser">
+		UPDATE SYS_USER SET 
+			name=#{contactName},
+			email=#{contactEmail} 
+		WHERE id=#{adminId}
+	</update>
+	
+	<update id="updateAdminUserWithMobile">
+		UPDATE SYS_USER SET 
+			name=#{contactName},
+			email=#{contactEmail},
+			<if test="password != null and password != '' ">
+				password=#{password},
+			</if>
+			mobile=#{contactMobile},
+			login_name=#{contactMobile} 
+		WHERE id=#{adminId}
+	</update>
+	
+	<select id="findUserList" resultType="com.thinkgem.jeesite.modules.sys.entity.User">
+		select a.id as "id", 
+			a.login_name as "loginName",
+	    	a.no,
+			a.name,
+			a.email,
+			a.phone,
+			a.mobile,
+			a.user_type as "userType",
+			a.login_flag as "loginFlag",
+			a.del_flag as "delFlag"
+			from sys_user a 
+		where a.org_code=#{orgCode} 
+		order by a.create_date 
+	</select>
+	
+	<update id="updateUserStatus">
+		UPDATE SYS_USER SET 
+			login_flag=#{loginFlag}
+		WHERE id=#{userId}
+	</update>
+	
+	<select id="findObject" resultType="com.thinkgem.jeesite.modules.org.entity.OrganizationInfo">
+		select a.id as "id", 
+			a.code as "code",
+			a.name as "name",
+			a.user_id as "userId",
+			a.licence_status as "licenceStatus",
+			a.log_status as "logStatus",
+			a.loa_status as "loaStatus",
+			a.status as "status",
+			a.credt as "credt",
+			a.moddt as "moddt"
+		from org_organization_info a 
+		where a.code=#{orgCode} 
+	</select>
+	
+	<update id="updateOrganAuditStatus">
+		update ORG_ORGANIZATION_INFO set
+			licence_status=#{licenceStatus},
+			log_status=#{logStatus},
+			loa_status=#{loaStatus},
+			status=#{status},
+			moddt=#{updateDate} 
+		where code=#{code}
+	</update>
+	
+</mapper>

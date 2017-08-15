@@ -1,0 +1,47 @@
+@charset "utf-8";
+.keyboard {position: absolute;z-index:500;width:440px;height:170px;text-align: center;color:#000;font-size:12px;cursor:pointer;font:12px Arial, Helvetica, sans-serif;overflow:hidden;border:1px solid #15181c;box-shadow:2px 2px 5px #333; background:#333; font-family:Arial, "微软雅黑", "黑体";}
+.keyboard input{font:12px Arial, Helvetica, sans-serif;}
+.keyboard a {text-decoration:none;outline:none;}
+.clear {
+    clear: both;
+}
+/*标题层*/
+.keyboard .boxTitleDiv {cursor:move;padding:2px 5px 3px;height:22px;}
+/*标题文字*/
+.keyboard .boxTitleSpan {text-align:left;padding-top: 3px;width: 310px;float: left;color:#fff;}
+/*标题按钮*/
+.keyboard .boxTitleBtn {float:right;width:22px;height:22px;line-height:22px;color:#fff;border:none;cursor:pointer;font-family:"微软雅黑", "宋体";}
+.keyboard .boxTitleBtn:hover {color:#fff;text-decoration:none;}
+.keyboard table {border-collapse:collapse;}
+
+/*按键*/
+.keyboard .keyBtn {width:25px;height:25px;cursor: pointer;border:none; background:#e3e5e7;}
+.keyboard .keyBtnHover {width:25px;height:25px;cursor: pointer;border:none;background:#fff;}
+
+/*退格*/
+.funKeys_backSpace { background:#7a8083;display:block;width:79px;height:25px;line-height:25px;border:none;cursor:pointer;color:#fff;}
+.funKeys_backSpace:hover {background:#818c92;color:#fff;}
+
+/*切换大小写键*/
+.funKeys_capsLock {display:block;width:79px;height:25px;line-height:25px;border:none;color:#fff;cursor:pointer;background:#7a8083;}
+.funKeys_capsLock:hover { background:#818c92;color:#fff;}
+
+/*清除键*/
+.funKeys_clear {display:block;width:52px;height:25px;line-height:25px;border:none;color:#fff;cursor:pointer;background:#cc3d3d;}
+.funKeys_clear:hover { background:#ce3636;color:#fff;}
+
+/*确定键*/
+.funKeys_enter {display:block;width:52px;height:52px;line-height:50px;border:none;color:#fff;cursor:pointer;background:#666;}
+.funKeys_enter:hover { background:#777;color:#fff;}
+
+.keybord_button {
+	/*
+	显示软件盘的按扭
+	*/
+	width:22px;
+	height:18px;
+	vertical-align:sub;
+	*vertical-align:1px;
+	border:none;
+}
+

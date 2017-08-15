@@ -1,0 +1,18 @@
+@charset "utf-8";
+/* Created by zhiwei.song*/
+.head{line-height:30px;background:#333;font-family:'宋体';font-size:12px;}
+.topNav{width:1190px;margin:0 auto;}
+.topNavL{color:#ccc;}
+.topNavL span{color:#808080;}
+.topNavR,.topNavR a{text-decoration:none;color:#fff;}
+.topMenu_part {margin:0 auto;height:60px;padding-top:20px;border-bottom:1px solid #ccc;background:#fff;position:relative;z-index:5;}
+.topMenu_part .topMenuInfo {height:45px;width:1190px;margin:0 auto;}
+.topMenu_part .topMenuInfo a {height:42px;cursor:pointer;font-size:20px;color:#333;font-weight:normal;line-height:42px;padding-right:5px;border:none;outline:none;}
+.topMenu_part .topMenuInfo a img{border:none;}
+/*footer*/
+.footer{background:#333;font-family:'宋体';height:230px;}
+.footer ul{width:1000px;text-align:center;color:#999;margin:0 auto;padding:25px 0;font-size:12px;}
+.footer ul li {line-height:22px;}
+.footer ul li a {margin:0 3px;color:#999;}
+
+.topMenu_part .w1190 .topMenuInfo {width:345px;margin:0;}
