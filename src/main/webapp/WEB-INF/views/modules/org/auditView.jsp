@@ -5,10 +5,11 @@
 <head>
 	<title>机构信息</title>
 	<meta name="decorator" content="org" />
+	<%-- <script type="text/javascript" src="${pageContext.request.contextPath}/static/jquery/jquery.media.js"></script> --%>
 	<script type="text/javascript">
 	$(function(){
 		$('.nopass').unbind("click");
-		$(".clear img").bind("click", function(){
+		$(".clear img").not(".pdf").bind("click", function(){
 			layer.open({
 				  type: 1,
 				  title: false,
@@ -44,7 +45,7 @@
                        		<li>
                        		<c:choose> 
                        		<c:when test="${obj.suffix == '.pdf'}">
-                       			<img alt="" src="${ctxStatic}/org/images/pdf.jpg" style="width:182px;height:130px;">
+                       			<a target="_blank" href="${fns:getConfig('web.fileServer')}${obj.filePath}${obj.saveFileName}"><img alt="" class="pdf" src="${ctxStatic}/org/images/pdf.jpg" style="width:182px;height:130px;"></a>
                        		</c:when>
                        		<c:otherwise>
                        			<img alt="" src="${fns:getConfig('web.fileServer')}${obj.filePath}${obj.saveFileName}" style="width:182px;height:130px;">
