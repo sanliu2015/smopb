@@ -26,7 +26,6 @@ public class BackAllService extends CrudService<OrgAuditLogDao, OrgAuditLog> {
 	@Autowired
 	private OrganizationInfoService organizationInfoService;
 	
-	@Transactional(readOnly = false)
 	public void orgAuditSubmit(List<OrgAuditLog> dtlList, Map<String, Object> respMap, OrgAuditLog organAuditLog) {
 		boolean passFlag = true;
 		StringBuilder noPassMsg = new StringBuilder(100);
@@ -74,6 +73,6 @@ public class BackAllService extends CrudService<OrgAuditLogDao, OrgAuditLog> {
 		organizationInfoService.updateOrganAuditStatus(organInfo);
 		respMap.put("sucFlag", "1");
 	}
-	
+
 	
 }

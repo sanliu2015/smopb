@@ -312,7 +312,7 @@ public class User extends DataEntity<User> {
 	}
 	
 	public boolean isAdmin(){
-		return isAdmin(this.id);
+		return isAdmin(this.id) || "admin".equals(this.userType);
 	}
 	
 	public static boolean isAdmin(String id){

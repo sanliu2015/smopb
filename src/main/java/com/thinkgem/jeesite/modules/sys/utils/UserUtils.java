@@ -286,6 +286,11 @@ public class UserUtils {
 //		getCacheMap().remove(key);
 		getSession().removeAttribute(key);
 	}
+
+	public static void kickOut(User user) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 //	public static Map<String, Object> getCacheMap(){
 //		Principal principal = getPrincipal();

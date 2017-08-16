@@ -4,19 +4,21 @@
 <html>
 <head>
 	<title>机构信息</title>
-	<link rel="stylesheet" type="text/css" href="${ctxStatic}/org/css/reset.css" />
-	<link rel="stylesheet" type="text/css" href="${ctxStatic}/org/css/common.css" />
-	<link rel="stylesheet" type="text/css" href="${ctxStatic}/org/css/yui.css" />
-	<link rel="stylesheet" type="text/css" href="${ctxStatic}/org/font/iconfont.css" />
-	<link rel="stylesheet" type="text/css" href="${ctxStatic}/org/css/style.css?v3" />
-	<!-- js -->
-	<script type="text/javascript" src="${ctxStatic}/jquery/jquery-2.2.4.min.js"></script>
-	<script type="text/javascript" src="${ctxStatic}/org/js/yui.js"></script>
-	<script type="text/javascript" src="${ctxStatic}/org/js/main.js"></script>
-	<script type="text/javascript" src="${ctxStatic}/layui/layui.js"></script>
+	<meta name="decorator" content="org" />
 	<script type="text/javascript">
 	$(function(){
 		$('.nopass').unbind("click");
+		$(".clear img").bind("click", function(){
+			layer.open({
+				  type: 1,
+				  title: false,
+				  closeBtn: 0,
+				  area: '1000px',
+				  skin: 'layui-layer-nobg', //没有背景色
+				  shadeClose: true,
+				  content: '<img src="' + $(this).attr("src") + '" />'
+				});
+		});
 	});
 	</script>
 </head>
@@ -48,7 +50,7 @@
                        			<img alt="" src="${fns:getConfig('web.fileServer')}${obj.filePath}${obj.saveFileName}" style="width:182px;height:130px;">
                        		</c:otherwise>
                        		</c:choose>
-                       			<p class="clear mt10"><b class="fl">${fns:getDictLabel(obj.itemCode, 'item_code','')}</b> <a href="${ctx}/downloadNative?fileName=${obj.saveFileName}&filePath=${obj.filePath}${obj.saveFileName}" class="fr downLoad">下载</a></p>
+                       			<p class="clear mt10"><b class="fl">${fns:getDictLabel(obj.itemCode, 'item_code','')}</b> <a href="${ctx}/download/downloadRemote?attchId=${obj.attachId}" class="fr downLoad">下载</a></p>
                                 <div class="yui-checkbox mt10 fl">
                                     <span class="gray9 nopass">${fns:getDictLabel(obj.status, 'audit_status','')}</span>
                                 </div>	
@@ -59,6 +61,7 @@
                        		</li>	
                        	</c:forEach>
                    </ul>
+                   <a href="javascript:void(0)" class="btn-style-a mt50 mgCenter db w350" onclick='history.go(-1);'>返  回</a>
                    </div>
                 </div>
             </div>

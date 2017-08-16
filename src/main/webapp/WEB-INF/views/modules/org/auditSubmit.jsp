@@ -4,19 +4,11 @@
 <html>
 <head>
 	<title>机构信息</title>
-	<link rel="stylesheet" type="text/css" href="${ctxStatic}/org/css/reset.css" />
-	<link rel="stylesheet" type="text/css" href="${ctxStatic}/org/css/common.css" />
-	<link rel="stylesheet" type="text/css" href="${ctxStatic}/org/css/yui.css" />
-	<link rel="stylesheet" type="text/css" href="${ctxStatic}/org/font/iconfont.css" />
-	<link rel="stylesheet" type="text/css" href="${ctxStatic}/org/css/style.css?v3" />
+	<meta name="decorator" content="org" />
 	<link rel="stylesheet" type="text/css" href="${ctxStatic}/jquery-validation/1.11.0/jquery.validate.min.css" />
 	<!-- js -->
-	<script type="text/javascript" src="${ctxStatic}/jquery/jquery-2.2.4.min.js"></script>
 	<script type="text/javascript" src="${ctxStatic}/jquery-validation/1.11.0/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="${ctxStatic}/jquery-form/jquery.form.min.js"></script>
-	<script type="text/javascript" src="${ctxStatic}/org/js/yui.js"></script>
-	<script type="text/javascript" src="${ctxStatic}/org/js/main.js?v5"></script>
-	<script type="text/javascript" src="${ctxStatic}/layui/layui.js"></script>
 	<script type="text/javascript">
 	function ajaxSub() {
 		var dtlList = new Array();
@@ -49,7 +41,8 @@
 	        	layer.closeAll('loading');
 				if(resp.sucFlag == 1){  
 	                layer.msg('审核成功!', {icon: 1,time: 1000,end : function(){
-	                		window.location.href = "${ctx}/orgAuditLog/auditList";
+	                		//window.history.go(-1);
+	                		window.location.href = "${ctx}/orgAuditLog/auditList?module=1";
 	                	}
 	                });  
 	            }else{
@@ -118,10 +111,5 @@
             </div>
         </div>	
     </form>    
-<script type="text/javascript">
-	layui.use('layer', function(){
-		var layer = layui.layer;
-	});    
-</script>	       
 </body>
 </html>

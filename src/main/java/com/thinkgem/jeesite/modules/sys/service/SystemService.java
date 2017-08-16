@@ -3,9 +3,11 @@
  */
 package com.thinkgem.jeesite.modules.sys.service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.shiro.session.Session;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -388,6 +390,47 @@ public class SystemService extends BaseService {
 		System.out.println(sb.toString());
 		**/
 		return true;
+		
+	}
+
+	public List<Map<String, Object>> queryOtherUserByLoginName(User user) {
+		return userDao.queryOtherUserByLoginName(user);
+	}
+
+	public void updateUserByDelete(Map<String, Object> paraMap) {
+		userDao.updateUserByDelete(paraMap);
+		
+	}
+
+	public List<User> findUserList(User user) {
+		return userDao.findUserList(user);
+	}
+
+	public void saveManager(Map<String, String> paraMap) {
+		User currentUser = UserUtils.getUser();
+		User user = new User();
+		user.setUserType("admin");
+		user.setName(paraMap.get("name"));
+		user.setEmail(paraMap.get("email"));
+		user.setLoginName(paraMap.get("email"));
+		user.setPassword(SystemService.entryptPassword(paraMap.get("password")));
+		// 其他相关参数初始化
+		Office company = new Office();
+		company.setId("1");
+		Office office = new Office();
+		office.setId("2");
+		user.setCompany(company);
+		user.setOffice(office);
+		user.setCreateBy(currentUser);
+		user.setUpdateBy(currentUser);
+		Date currentDate = new Date();
+		user.setCreateDate(currentDate);
+		user.setUpdateDate(currentDate);
+		Role role = this.getRoleByEnname("dept");
+		List<Role> roleList = new ArrayList<Role>(1);
+		roleList.add(role);
+		user.setRoleList(roleList);
+		this.saveUser(user);
 		
 	}
 	

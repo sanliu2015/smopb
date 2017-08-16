@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.common.collect.Maps;
 import com.thinkgem.jeesite.common.config.Global;
@@ -131,7 +132,7 @@ public class LoginController extends BaseController{
 	 */
 	@RequiresPermissions("user")
 	@RequestMapping(value = "${adminPath}")
-	public String index(HttpServletRequest request, HttpServletResponse response) {
+	public String index(HttpServletRequest request, HttpServletResponse response, RedirectAttributes attr) {
 		Principal principal = UserUtils.getPrincipal();
 
 		// 登录成功后，验证码计算器清零
@@ -152,13 +153,15 @@ public class LoginController extends BaseController{
 			}
 		}
 		
+		attr.addAttribute("module", "1");
+		
 		// 如果是手机登录，则返回JSON字符串
 		if (principal.isMobileLogin()){
 			if (request.getParameter("login") != null){
 				return renderString(response, principal);
 			}
 			if (request.getParameter("index") != null){
-				return "modules/sys/sysIndex";
+				return "redirect:" + adminPath + "/orgAuditLog/auditList";
 			}
 			return "redirect:" + adminPath + "/login";
 		}
@@ -180,7 +183,7 @@ public class LoginController extends BaseController{
 ////			request.getSession().setAttribute("aaa", "aa");
 ////		}
 //		System.out.println("==========================b");
-		return "modules/sys/sysIndex";
+		return "redirect:" + adminPath + "/orgAuditLog/auditList";
 	}
 	
 	/**

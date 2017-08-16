@@ -143,7 +143,7 @@
 		FROM sys_user a
 		<include refid="userJoins"/><!-- 
 		LEFT JOIN sys_role_office ro ON ro.role_id = r.id -->
-		WHERE a.login_name = #{loginName} AND a.del_flag = #{DEL_FLAG_NORMAL}
+		WHERE a.login_name = #{loginName} AND a.del_flag = #{DEL_FLAG_NORMAL} and a.org_code is null 
 	</select>
 	
 	<!-- 分页查询用户信息 -->
@@ -155,7 +155,7 @@
 		<if test="role != null and role.id != null and role.id != ''">
 			JOIN sys_user_role ur ON ur.user_id = a.id AND ur.role_id = #{role.id}
 		</if>
-		WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+		WHERE a.del_flag = #{DEL_FLAG_NORMAL} and a.org_code is null 
 		<if test="company != null and company.id != null and company.id != ''">
 			AND (c.id = #{company.id} OR c.parent_ids LIKE 
 					<if test="dbName == 'oracle'">'%,'||#{company.id}||',%')</if>
@@ -201,7 +201,7 @@
 		SELECT
 			a.id, a.name, a.login_name
 		FROM sys_user a
-		WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+		WHERE a.del_flag = #{DEL_FLAG_NORMAL} and a.org_code is null  
 			AND a.office_id = #{office.id}
 		ORDER BY a.name
 	</select>
@@ -212,7 +212,7 @@
 			<include refid="userColumns"/>
 		FROM sys_user a
 		<include refid="userJoins"/>
-		WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+		WHERE a.del_flag = #{DEL_FLAG_NORMAL} and a.org_code is null 
 		ORDER BY c.code, o.code, a.name
 	</select>
 	
@@ -221,7 +221,7 @@
 		SELECT
 			COUNT(1)
 		FROM sys_user a
-		WHERE a.del_flag = #{DEL_FLAG_NORMAL}
+		WHERE a.del_flag = #{DEL_FLAG_NORMAL} and a.org_code is null 
 	</select>
 	
 	<!-- 插入用户 -->
@@ -342,5 +342,33 @@
 			del_flag = #{DEL_FLAG_DELETE}
 		WHERE id = #{id}
 	</update>
+	
+	<select id="findUserList" resultType="com.thinkgem.jeesite.modules.sys.entity.User">
+		select a.id as "id", 
+			a.login_name as "loginName",
+	    	a.no,
+			a.name,
+			a.email,
+			a.phone,
+			a.mobile,
+			a.login_flag as "loginFlag",
+			a.del_flag as "delFlag"
+			from sys_user a 
+		where a.org_code is null  
+		order by a.create_date desc 
+	</select>
+	
+	<update id="updateUserByDelete">
+		UPDATE SYS_USER SET 
+			del_flag=#{delFlag}
+		WHERE id=#{userId}
+	</update>
+	
+	<select id="queryOtherUserByLoginName" resultType="java.util.Map">
+		select id as "id" from sys_user where login_name=#{loginName} and  del_flag='0' 
+		<if test="id != null and id != '' ">
+			and id !=#{id} 
+		</if>
+	</select>
 	
 </mapper>
