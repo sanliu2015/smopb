@@ -85,10 +85,10 @@
 					${obj.operator.name}
 				</td>
 				<shiro:hasPermission name="org:audit:view"><td>
-    				<a href="${ctx}/orgAuditLog/view?module=${module}&id=${obj.id}">详情</a>
+    				<%-- <a href="${ctx}/orgAuditLog/view?module=${module}&id=${obj.id}">详情</a> --%>
     				<shiro:hasPermission name="org:audit:edit">
     					<c:if test="${obj.status == '0'}">
-    						<a href="${ctx}/orgAuditLog/audit?module=${module}&id=${obj.id}">审核</a>	
+    						<a href="${ctx}/orgAuditLog/audit?module=${module}&id=${obj.id}">详情</a>	
     					</c:if>
     				</shiro:hasPermission>
 				</td></shiro:hasPermission>
