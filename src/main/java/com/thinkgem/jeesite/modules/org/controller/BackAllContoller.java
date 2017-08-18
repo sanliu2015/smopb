@@ -60,8 +60,17 @@ public class BackAllContoller extends BaseController {
 		OrgAuditLog auditLog = orgAuditLogService.get(request.getParameter("id"));
 		List<Map<String, Object>> organMap = organizationInfoService.queryOrganInfo(auditLog.getOrgCode());
 		request.setAttribute("organMap", organMap.get(0));
+		List<Map<String, Object>> attachsList = orgAuditLogService.queryAttachs(auditLog);
 		List<Map<String, Object>> auditLogList = orgAuditLogService.queryAuditLog(auditLog);
-		model.addAttribute("auditLogList", auditLogList);
+		for (Map<String, Object> tempMap : attachsList) {
+			for (Map<String, Object> logMap : auditLogList) {
+				if (tempMap.get("itemCode").toString().equals(logMap.get("itemCode").toString())) {
+					tempMap.putAll(logMap);
+				}
+			}
+		}
+//		model.addAttribute("auditLogList", auditLogList);
+		model.addAttribute("auditLogList", attachsList);
 		model.addAttribute("module", request.getParameter("module"));
 		return "modules/org/auditView";
 	}
@@ -73,8 +82,17 @@ public class BackAllContoller extends BaseController {
 		OrgAuditLog auditLog = orgAuditLogService.get(request.getParameter("id"));
 		List<Map<String, Object>> organMap = organizationInfoService.queryOrganInfo(auditLog.getOrgCode());
 		request.setAttribute("organMap", organMap.get(0));
+		List<Map<String, Object>> attachsList = orgAuditLogService.queryAttachs(auditLog);
 		List<Map<String, Object>> auditLogList = orgAuditLogService.queryAuditLog(auditLog);
-		model.addAttribute("auditLogList", auditLogList);
+		for (Map<String, Object> tempMap : attachsList) {
+			for (Map<String, Object> logMap : auditLogList) {
+				if (tempMap.get("itemCode").toString().equals(logMap.get("itemCode").toString())) {
+					tempMap.putAll(logMap);
+				}
+			}
+		}
+//		model.addAttribute("auditLogList", auditLogList);
+		model.addAttribute("auditLogList", attachsList);
 		model.addAttribute("module", request.getParameter("module"));
 		return "modules/org/auditSubmit";
 	}

@@ -32,4 +32,6 @@ public interface OrgAuditLogDao extends CrudDao<OrgAuditLog> {
 
 	void auditLog(OrgAuditLog orgAuditLog);
 
+	List<Map<String, Object>> queryAttachs(OrgAuditLog auditLog);
+
 }

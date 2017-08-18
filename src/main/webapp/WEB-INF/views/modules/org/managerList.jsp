@@ -9,6 +9,9 @@
 	<!-- js -->
 	<script type="text/javascript" src="${ctxStatic}/jquery-validation/1.11.0/jquery.validate.min.js"></script>
 	<script type="text/javascript" src="${ctxStatic}/jquery-form/jquery.form.min.js"></script>
+	<style type="text/css">
+		div label {line-height:36px;}
+	</style>
 	<script type="text/javascript">
 	$(document).ready(function() {
 		

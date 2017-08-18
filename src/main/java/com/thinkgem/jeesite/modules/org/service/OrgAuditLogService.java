@@ -126,5 +126,9 @@ public class OrgAuditLogService extends CrudService<OrgAuditLogDao, OrgAuditLog>
 		dao.auditLog(orgAuditLog);
 	}
 
+	public List<Map<String, Object>> queryAttachs(OrgAuditLog auditLog) {
+		return dao.queryAttachs(auditLog);
+	}
+
 
 }

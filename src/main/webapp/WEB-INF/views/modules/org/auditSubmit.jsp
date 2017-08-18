@@ -14,6 +14,9 @@
 		var dtlList = new Array();
 		var exitFlag = false;
 		$("ul[class='clear'] li").each(function(){
+			if ($(this).find("input[name='status']").val() == "1") {
+				return true;
+			} 
 			var status = "3";
 			if ($(this).find(".yui-checkbox").hasClass("yui-checked")) {
 				status = "2";
@@ -86,6 +89,7 @@
                        		<input type="hidden" name="itemCode" value="${obj.itemCode}"/>
                        		<input type="hidden" name="credt" value="${obj.credt}"/>
                        		<input type="hidden" name="moddt" value="${obj.moddt}"/>
+                       		<input type="hidden" name="status" value="${obj.status}"/>
                        		<c:choose> 
                        		<c:when test="${obj.suffix == '.pdf'}">
                        			<img alt="" src="${ctxStatic}/org/images/pdf.jpg" style="width:182px;height:130px;">
@@ -96,7 +100,9 @@
                        		</c:choose>
                        			<p class="clear mt10"><b class="fl">${fns:getDictLabel(obj.itemCode, 'item_code','')}</b> <a href="${ctx}/downloadNative?fileName=${obj.saveFileName}&filePath=${obj.filePath}${obj.saveFileName}" class="fr downLoad">下载</a></p>
                                 <div class="yui-checkbox mt10 fl">
-                                    <label><i class="iconfont"></i></label><input type="checkbox" name="" hidden=""><span class="gray9 nopass">不通过</span>
+                                	<c:if test="${obj.status != '1'}">
+                                    	<label><i class="iconfont"></i></label><input type="checkbox" name="" hidden=""><span class="gray9 nopass">不通过</span>
+                                	</c:if>
                                 </div>	
                                 <div class="reason hide">
                                    <i></i>

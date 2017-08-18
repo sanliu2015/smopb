@@ -127,6 +127,14 @@
 		order by a.item_code asc	
 	</select>
 	
+	<select id="queryAttachs" parameterType="com.thinkgem.jeesite.modules.org.entity.OrgAuditLog" resultType="map">
+		select b.id as "attachId",b.org_code as "orgCode",b.item_code as "itemCode",'1' as "status",
+			b.file_path as "filePath",b.save_file_name as "saveFileName",b.suffix as "suffix" 
+		from org_attachment b 
+		where b.org_code=#{orgCode} 
+		order by b.item_code asc
+	</select>
+	
 	<select id="getOrganAuditLog" resultType="com.thinkgem.jeesite.modules.org.entity.OrgAuditLog">
 		SELECT 
 			<include refid="orgAuditLogColumns"/>
