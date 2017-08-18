@@ -67,12 +67,14 @@
 		a.moddt as "moddt",
 		b.name as "orgName",
 		a.operator as "operator.id",
-		c.name as "operator.name"
+		c.name as "operator.name",
+		d.org_code as "newestFlag" 
 	</sql>
 	
 	<sql id="orgAuditLogJoins">
 		left join ORG_ORGANIZATION_INFO b on a.org_code=b.code 
 		left join sys_user c on a.operator=c.id 
+		left join (select max(CREDT) as CREDT,ORG_CODE from ORG_AUDIT_LOG a where a.ITEM_CODE='0' group by a.ORG_CODE) d on a.credt=d.credt 
 	</sql>
 	
 	<select id="get" resultType="com.thinkgem.jeesite.modules.org.entity.OrgAuditLog">

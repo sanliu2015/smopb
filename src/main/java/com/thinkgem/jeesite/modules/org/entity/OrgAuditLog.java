@@ -38,6 +38,8 @@ public class OrgAuditLog extends DataEntity<OrgAuditLog> {
 	
 	private String submitEdate;
 	
+	private String newestFlag;
+	
 
 	public String getOrgCode() {
 		return orgCode;
@@ -118,6 +120,15 @@ public class OrgAuditLog extends DataEntity<OrgAuditLog> {
 	public void setSubmitEdate(String submitEdate) {
 		this.submitEdate = submitEdate;
 	}
+
+	public String getNewestFlag() {
+		return newestFlag;
+	}
+
+	public void setNewestFlag(String newestFlag) {
+		this.newestFlag = newestFlag;
+	}
+
 
 	
 }
